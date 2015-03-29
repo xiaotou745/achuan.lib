@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="AC.CodeGenerator" Label="AC.CodeGenerator" Category="项目" />
+    <Node Id="Common.Logging 3.1.0" Label="Common.Logging 3.1.0" Category="包" />
+    <Node Id="Common.Logging.Core 3.1.0" Label="Common.Logging.Core 3.1.0" Category="包" />
+    <Node Id="AC.Data" Label="AC.Data" Category="项目" />
+    <Node Id="Common.Logging 3.1.0" Label="Common.Logging 3.1.0" Category="包" />
+    <Node Id="Common.Logging.Core 3.1.0" Label="Common.Logging.Core 3.1.0" Category="包" />
+    <Node Id="AC.Core" Label="AC.Core" Category="项目" />
+    <Node Id="Common.Logging 3.1.0" Label="Common.Logging 3.1.0" Category="包" />
+    <Node Id="Common.Logging.Core 3.1.0" Label="Common.Logging.Core 3.1.0" Category="包" />
+  </Nodes>
+  <Links>
+    <Link Source="Common.Logging 3.1.0" Target="Common.Logging.Core 3.1.0" Category="程序包依赖项" />
+    <Link Source="AC.CodeGenerator" Target="Common.Logging 3.1.0" Category="安装的程序包" />
+    <Link Source="Common.Logging 3.1.0" Target="Common.Logging.Core 3.1.0" Category="程序包依赖项" />
+    <Link Source="AC.Data" Target="Common.Logging 3.1.0" Category="安装的程序包" />
+    <Link Source="Common.Logging 3.1.0" Target="Common.Logging.Core 3.1.0" Category="程序包依赖项" />
+    <Link Source="AC.Core" Target="Common.Logging 3.1.0" Category="安装的程序包" />
+  </Links>
+  <Categories>
+    <Category Id="项目" />
+    <Category Id="包" />
+  </Categories>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="项目" ValueLabel="True">
+      <Condition Expression="HasCategory('项目')" />
+      <Setter Property="Background" Value="Blue" />
+    </Style>
+    <Style TargetType="Link" GroupLabel="程序包依赖项" ValueLabel="True">
+      <Condition Expression="HasCategory('程序包依赖项')" />
+      <Setter Property="Background" Value="Yellow" />
+    </Style>
+  </Styles>
+</DirectedGraph>

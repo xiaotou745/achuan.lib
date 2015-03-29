@@ -1,0 +1,15 @@
+*.user
+*.suo
+*.bak
+
+#=============ac.core ignore
+net/net.libs/AC.Core/bin/
+net/net.libs/AC.Core/obj/
+
+#=============ac.data ignore
+net/net.libs/AC.Data/bin/
+net/net.libs/AC.Data/obj/
+
+#=============ac.codegenerator ignore
+net/net.libs/AC.CodeGenerator/bin/
+net/net.libs/AC.CodeGenerator/obj/
