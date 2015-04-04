@@ -2,6 +2,9 @@
 
 namespace AC.Util
 {
+    /// <summary>
+    /// Dns 工具类
+    /// </summary>
 	public class DnsUtils
 	{
 		/// <summary>

@@ -2,12 +2,12 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace AC.IO
+namespace AC.Ini
 {
 	/// <summary>
 	/// 操作.ini 文件的读写
 	/// </summary>
-	public class INIFileManager
+	public class IniFileManager
 	{
 		/// <summary>
 		/// 文件路径
@@ -18,7 +18,7 @@ namespace AC.IO
 		/// Constructor
 		/// </summary>
 		/// <param name="iniPath"></param>
-		public INIFileManager(string iniPath)
+		public IniFileManager(string iniPath)
 		{
 			Path = iniPath;
 		}

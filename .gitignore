@@ -5,11 +5,35 @@
 #=============ac.core ignore
 net/net.libs/AC.Core/bin/
 net/net.libs/AC.Core/obj/
+net/net.libs/AC.Core.Tests/bin/
+net/net.libs/AC.Core.Tests/obj/
 
 #=============ac.data ignore
 net/net.libs/AC.Data/bin/
 net/net.libs/AC.Data/obj/
+net/net.libs/AC.Data.Tests/bin/
+net/net.libs/AC.Data.Tests/obj/
 
 #=============ac.codegenerator ignore
 net/net.libs/AC.CodeGenerator/bin/
 net/net.libs/AC.CodeGenerator/obj/
+net/net.libs/AC.CodeGenerator.Tests/bin/
+net/net.libs/AC.CodeGenerator.Tests/obj/
+
+#=============ac.json ignore
+net/net.libs/AC.Json/bin/
+net/net.libs/AC.Json.Tests/bin/
+net/net.libs/AC.Json/obj/
+net/net.libs/AC.Json.Tests/obj/
+
+#============ac.Image ac.cache
+net/net.libs/AC.Cache/bin/
+net/net.libs/AC.Cache/obj/
+net/net.libs/AC.Cache.Tests/bin/
+net/net.libs/AC.Cache.Tests/obj/
+
+net/net.libs/AC.Image/bin/
+net/net.libs/AC.Image/obj/
+net/net.libs/AC.Image.Tests/bin/
+net/net.libs/AC.Image.Tests/obj/
+

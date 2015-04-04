@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.IO;
+using AC.Extension;
 
 namespace AC.IO
 {
@@ -370,7 +371,7 @@ namespace AC.IO
 		/// <param name="saveFileDialog">SaveFileDialog instance</param>
 		public static bool OutputCSVFromDataTable(DataTable dt, SaveFileDialog saveFileDialog)
 		{
-			if (Common.DataTableIsEmpty(dt))
+			if (dt.IsEmpty())
 			{
 				return false;
 			}
@@ -415,7 +416,7 @@ namespace AC.IO
 		/// <param name="path"></param>
 		public static bool OutputCSVFromDataTableNoShow(DataTable dt,string path)
 		{
-			if (Common.DataTableIsEmpty(dt))
+			if (dt.IsEmpty())
 			{
 				return false;
 			}
@@ -468,7 +469,7 @@ namespace AC.IO
 		/// <returns></returns>
 		public static bool OutputXLSFromDataTable(string[] columns ,DataTable dt, SaveFileDialog saveFileDialog)
 		{
-			if (Common.DataTableIsEmpty(dt))
+			if (dt.IsEmpty())
 			{
 				return false;
 			}
@@ -529,7 +530,7 @@ namespace AC.IO
         /// <returns></returns>
         public static bool OutputXLSFromDataTable(string[] columns, DataTable dt, string strPath)
         {
-            if (Common.DataTableIsEmpty(dt))
+            if (dt.IsEmpty())
             {
                 return false;
             }

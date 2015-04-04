@@ -13,26 +13,6 @@ namespace AC.IO
 	public class Common
 	{
 		/// <summary>
-		/// 判断DataSet有无数据
-		/// </summary>
-		/// <param name="ds">DataSet</param>
-		/// <returns></returns>
-		public static bool DataSetIsEmpty(DataSet ds)
-		{
-			return (ds == null) || (ds.Tables.Count < 1) || DataTableIsEmpty(ds.Tables[0]);
-		}
-
-		/// <summary>
-		/// 判断DataTable有无数据
-		/// </summary>
-		/// <param name="dt">DataTable</param>
-		/// <returns></returns>
-		public static bool DataTableIsEmpty(DataTable dt)
-		{
-			return (dt == null) || (dt.Rows.Count < 1);
-		}
-
-		/// <summary>
 		/// 字段值数组转换为字符串
 		/// </summary>
 		/// <param name="arr">字段值数组</param>

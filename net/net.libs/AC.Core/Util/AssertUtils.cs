@@ -4,6 +4,9 @@ using System.IO;
 
 namespace AC.Util
 {
+    /// <summary>
+    /// ∂œ—‘π§æﬂ¿‡
+    /// </summary>
 	public static class AssertUtils
 	{
 		#region ArgumentNotNull

@@ -4,14 +4,17 @@ using System.Text;
 
 namespace AC.Extension
 {
+    /// <summary>
+    /// List扩展类
+    /// </summary>
     public static class ListExtensions
     {
         /// <summary>
-        /// 
+        /// 把一个List<typeparamref name="T"/>使用指定字符拼接成一个字符串
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">类型</typeparam>
         /// <param name="list"></param>
-        /// <param name="c"></param>
+        /// <param name="c">拼接字符</param>
         /// <returns></returns>
         public static string SplitString<T>(this List<T> list, char c)
         {
@@ -28,10 +31,15 @@ namespace AC.Extension
             return result.ToString();
         }
 
-        public static List<int> ToNumberList(this List<string> list)
+        /// <summary>
+        /// 把一个string List转换为 int List
+        /// </summary>
+        /// <param name="stringList">string list</param>
+        /// <returns>返回int list结果</returns>
+        public static List<int> ToNumberList(this List<string> stringList)
         {
             var result = new List<int>();
-            foreach (var item in list)
+            foreach (var item in stringList)
             {
                 result.Add(Convert.ToInt32(item));
             }
