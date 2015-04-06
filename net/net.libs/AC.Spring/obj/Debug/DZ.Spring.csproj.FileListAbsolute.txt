@@ -1,0 +1,6 @@
+D:\WYC\MyJob\sizom\SVN\trunk\Core\DZ.Spring\bin\Debug\DZ.Spring.dll
+D:\WYC\MyJob\sizom\SVN\trunk\Core\DZ.Spring\bin\Debug\DZ.Spring.pdb
+D:\WYC\MyJob\sizom\SVN\trunk\Core\DZ.Spring\bin\Debug\Common.Logging.dll
+D:\WYC\MyJob\sizom\SVN\trunk\Core\DZ.Spring\bin\Debug\Spring.Core.dll
+D:\WYC\MyJob\sizom\SVN\trunk\Core\DZ.Spring\obj\Debug\DZ.Spring.dll
+D:\WYC\MyJob\sizom\SVN\trunk\Core\DZ.Spring\obj\Debug\DZ.Spring.pdb
