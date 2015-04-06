@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using AC.Data.ConnString.Config;
+using AC.Helper;
 using AC.Util;
 using Common.Logging;
 
@@ -36,7 +37,7 @@ namespace AC.Data.ConnString.Xml
         /// </summary>
         protected string XmlFilePath
         {
-            get { return ConfigUtils.GetConfigValue("ConnStringConfigPath", string.Empty); }
+            get { return ConfigHelper.GetConfigValue("ConnStringConfigPath", string.Empty); }
         }
 
         #endregion

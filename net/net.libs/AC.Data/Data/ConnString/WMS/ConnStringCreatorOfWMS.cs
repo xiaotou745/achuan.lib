@@ -5,6 +5,7 @@ using System.Text;
 using AC.Dao;
 using AC.Data.ConnString.Config;
 using AC.Data.Generic;
+using AC.Helper;
 using Common.Logging;
 using AC.Security;
 using AC.Util;
@@ -65,7 +66,7 @@ from WMSDatabases wd(nolock)";
 		{
 			get
 			{
-				string configValue = ConfigUtils.GetConfigValue("IsDebug", "true");
+				string configValue = ConfigHelper.GetConfigValue("IsDebug", "true");
 				return bool.Parse(configValue);
 			}
 		}

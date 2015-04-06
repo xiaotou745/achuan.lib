@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Net.Mime;
 using System.Reflection;
 using System.Text;
+using AC.Helper;
 using Common.Logging;
 
 namespace AC.Util
@@ -338,8 +339,8 @@ namespace AC.Util
 
 		public static bool SendMailOfSCMWithDns(string mailSubject, string mailContent, string mailAddress, string mailFrom)
 		{
-			mailSubject = mailSubject + String.Format("(ServerHost Ip/Name:{0}/{1})", DnsUtils.HostIp, DnsUtils.HostName);
-			mailContent = String.Format("(ServerHost Ip/Name:{0}/{1})\r\n", DnsUtils.HostIp, DnsUtils.HostName) + mailContent;
+			mailSubject = mailSubject + String.Format("(ServerHost Ip/Name:{0}/{1})", DnsHelper.HostIp, DnsHelper.HostName);
+			mailContent = String.Format("(ServerHost Ip/Name:{0}/{1})\r\n", DnsHelper.HostIp, DnsHelper.HostName) + mailContent;
 
 			return SendMailOfSCM(mailSubject, mailContent, mailAddress, mailFrom, false);
 		}

@@ -38,6 +38,8 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +53,13 @@
     <Compile Include="Extension\DataExtension.cs" />
     <Compile Include="Extension\ListExtensions.cs" />
     <Compile Include="Extension\StringExtension.cs" />
+    <Compile Include="Helper\EntityHelper.cs" />
+    <Compile Include="Helper\MailHelper.cs" />
+    <Compile Include="Security\DEncrypt.cs" />
+    <Compile Include="Security\DESEncrypt.cs" />
+    <Compile Include="Security\HashEncode.cs" />
+    <Compile Include="Security\RSACryption.cs" />
+    <Compile Include="Util\StringPlus.cs" />
     <Compile Include="IO\Common.cs" />
     <Compile Include="IO\Excel.cs" />
     <Compile Include="IO\ExcelWriter.cs" />
@@ -68,21 +77,23 @@
     <Compile Include="Threading\LogicalThreadContext.cs" />
     <Compile Include="Threading\ThreadStaticStorage.cs" />
     <Compile Include="Util\AssertUtils.cs" />
-    <Compile Include="Util\ConfigUtils.cs" />
-    <Compile Include="Util\ConvertHelper.cs" />
-    <Compile Include="Util\DnsUtils.cs" />
-    <Compile Include="Util\EnumUtils.cs" />
-    <Compile Include="Util\FileHelper.cs" />
+    <Compile Include="Helper\ConfigHelper.cs" />
+    <Compile Include="Helper\ConvertHelper.cs" />
+    <Compile Include="Helper\DnsHelper.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Util\JSON.cs" />
     <Compile Include="Json\JsonSerializer.cs" />
     <Compile Include="Util\Log.cs" />
     <Compile Include="Util\MailUtils.cs" />
-    <Compile Include="Util\ParseHelper.cs" />
-    <Compile Include="Util\StringHelper.cs" />
+    <Compile Include="Helper\ParseHelper.cs" />
+    <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Util\StringVerify.cs" />
     <Compile Include="Util\ValidationHelper.cs" />
-    <Compile Include="Util\XmlHelper.cs" />
+    <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Web\AjaxResult.cs" />
+    <Compile Include="Web\PageValidate.cs" />
+    <Compile Include="Web\VerifyCode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

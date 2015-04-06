@@ -28,8 +28,8 @@ namespace AC.Util
         }
 
 
+        private static readonly JavaScriptSerializer objSerializer = new JavaScriptSerializer();
 
-        private static JavaScriptSerializer objSerializer = new JavaScriptSerializer();
         /// <summary>
         /// datatable  转json,新版报表用
         /// </summary>
@@ -50,7 +50,7 @@ namespace AC.Util
                     builder.Append("{");
                     for (int j = 0; j < dt.Columns.Count; j++)
                     {
-                        builder.Append("\"" + dt.Columns[j].ColumnName.ToString() + "\":" + objSerializer.Serialize(dt.Rows[i][j]));
+                        builder.Append("\"" + dt.Columns[j].ColumnName + "\":" + objSerializer.Serialize(dt.Rows[i][j]));
                         if (j < (dt.Columns.Count - 1))
                         {
                             builder.Append(",");
@@ -76,7 +76,6 @@ namespace AC.Util
         /// <param name="jobj">要转换成JSON字符串的对象</param>
         /// <param name="ifAddBackSlash">在每个反斜杠后面增加一个反斜杠，用来在页面直接打出DataTable时候用</param>
         /// <returns>转换后的JSON字符串</returns>
-
         public static string toJSON(Object jobj, bool ifAddBackSlash)
         {
             string s = toJSON(jobj);
@@ -86,7 +85,6 @@ namespace AC.Util
                 return s.Replace("\\", "\\\\");
             else
                 return s;
-
         }
 
         /// <summary>
@@ -110,7 +108,7 @@ namespace AC.Util
                 return Obj2JSON(jobj);
             else
             {
-                ArrayList al = (ArrayList)jobj;
+                ArrayList al = (ArrayList) jobj;
                 jResult.Append('[');
                 for (int i = 0; i < al.Count; i++)
                 {
@@ -127,30 +125,29 @@ namespace AC.Util
         }
 
 
-
-        private static Object convertFromJSON(Object jObj)  //初步被解析过的ArrayList或者Obj被送到这里来，解析为C#的对象，number，datetime，arraylist，等
+        private static Object convertFromJSON(Object jObj)
+            //初步被解析过的ArrayList或者Obj被送到这里来，解析为C#的对象，number，datetime，arraylist，等
         {
             if (jObj == null)
-                return null;                                //null应该是出了什么问题了，格式错误等。
+                return null; //null应该是出了什么问题了，格式错误等。
 
-            String s = jObj.GetType().ToString();           //如果不是null，那就首先判断一下对象的类型
+            String s = jObj.GetType().ToString(); //如果不是null，那就首先判断一下对象的类型
 
 
-            if (s != "System.Collections.ArrayList")        //对象不是ArrayList，那就是number之类东西，直接返回。
+            if (s != "System.Collections.ArrayList") //对象不是ArrayList，那就是number之类东西，直接返回。
                 return jObj;
 
 
-
-            ArrayList al = (ArrayList)jObj;                 //下来判断输入值是不是一个单个对象，目前仅支持System.DataTable和System.DateTime */
+            ArrayList al = (ArrayList) jObj; //下来判断输入值是不是一个单个对象，目前仅支持System.DataTable和System.DateTime */
 
             if (al[0] != null && al[0].GetType().ToString() == "System.Collections.ArrayList")
             {
-                if (((ArrayList)al[0])[0].GetType().ToString() == "System.String")
+                if (((ArrayList) al[0])[0].GetType().ToString() == "System.String")
                 {
-                    if ((String)(((ArrayList)al[0])[0]) == "DataType")
-                        if ((String)(((ArrayList)al[0])[1]) == "System.DataTable")
+                    if ((String) (((ArrayList) al[0])[0]) == "DataType")
+                        if ((String) (((ArrayList) al[0])[1]) == "System.DataTable")
                             return al2DataTable(al);
-                        else if ((String)(((ArrayList)al[0])[1]) == "System.DateTime")
+                        else if ((String) (((ArrayList) al[0])[1]) == "System.DateTime")
                             return al2DateTime(al);
                 }
             }
@@ -167,14 +164,14 @@ namespace AC.Util
 
                 if (sType == "System.Collections.ArrayList")
                 {
-                    tmpal = (ArrayList)al[i];
-                    tmpal2 = (ArrayList)tmpal[0];
+                    tmpal = (ArrayList) al[i];
+                    tmpal2 = (ArrayList) tmpal[0];
 
-                    if ((String)tmpal2[0] == "DataType")
+                    if ((String) tmpal2[0] == "DataType")
                     {
-                        if ((String)tmpal2[1] == "System.DataTable")
+                        if ((String) tmpal2[1] == "System.DataTable")
                             al[i] = al2DataTable(tmpal);
-                        else if ((String)tmpal2[1] == "System.DateTime")
+                        else if ((String) tmpal2[1] == "System.DateTime")
                             al[i] = al2DateTime(tmpal);
                     }
                 }
@@ -191,32 +188,32 @@ namespace AC.Util
         private static DataTable al2DataTable(ArrayList al)
         {
             DataTable dt = new DataTable();
-            dt.TableName = (String)((ArrayList)(ArrayList)al[1])[1];
+            dt.TableName = (String) ((ArrayList) al[1])[1];
             int i, j;
 
             String columnName, columnType;
-            ArrayList alColumns = (ArrayList)al[2];
+            ArrayList alColumns = (ArrayList) al[2];
             ArrayList colTemp;
-            int columnsCount = ((ArrayList)alColumns[1]).Count;
+            int columnsCount = ((ArrayList) alColumns[1]).Count;
             DataColumn dc;
 
             for (i = 0; i < columnsCount; i++)
             {
-                colTemp = (ArrayList)((ArrayList)alColumns[1])[i];
+                colTemp = (ArrayList) ((ArrayList) alColumns[1])[i];
 
-                columnName = (String)((ArrayList)(ArrayList)colTemp[0])[1];
-                columnType = (String)((ArrayList)(ArrayList)colTemp[1])[1];
+                columnName = (String) ((ArrayList) colTemp[0])[1];
+                columnType = (String) ((ArrayList) colTemp[1])[1];
 
                 dc = new DataColumn(columnName, System.Type.GetType(columnType));
 
                 dt.Columns.Add(dc);
             }
 
-            ArrayList alRows = (ArrayList)al[3];
+            ArrayList alRows = (ArrayList) al[3];
 
             ArrayList rowTemp;
 
-            int rowsCount = ((ArrayList)alRows[1]).Count;
+            int rowsCount = ((ArrayList) alRows[1]).Count;
             String RowName = null;
             Object RowValue = null;
             DataRow dr;
@@ -224,19 +221,19 @@ namespace AC.Util
             for (i = 0; i < rowsCount; i++)
             {
                 dr = dt.NewRow();
-                rowTemp = (ArrayList)((ArrayList)alRows[1])[i];
+                rowTemp = (ArrayList) ((ArrayList) alRows[1])[i];
 
                 for (j = 0; j < rowTemp.Count; j++)
                 {
-                    var rowTemp1 = ((ArrayList)rowTemp[j]);
+                    var rowTemp1 = ((ArrayList) rowTemp[j]);
                     if (rowTemp1 != null && rowTemp1.Count >= 2)
                     {
-                        RowName = (String)rowTemp1[0];
+                        RowName = (String) rowTemp1[0];
                         RowValue = rowTemp1[1];
                     }
 
-                    if (RowValue != null && RowValue.GetType().ToString() == "System.Collections.ArrayList")//DataTime
-                        RowValue = al2DateTime((ArrayList)RowValue);
+                    if (RowValue != null && RowValue.GetType().ToString() == "System.Collections.ArrayList") //DataTime
+                        RowValue = al2DateTime((ArrayList) RowValue);
                     if (!string.IsNullOrEmpty(RowName))
                     {
                         if (RowValue == null)
@@ -253,6 +250,7 @@ namespace AC.Util
 
             return dt;
         }
+
         /// <summary>
         /// ArrayList转换为DateTime类型
         /// </summary>
@@ -262,12 +260,12 @@ namespace AC.Util
         {
             if (al != null && al.Count >= 2)
             {
-                var al1 = (ArrayList)al[1];
+                var al1 = (ArrayList) al[1];
                 if (al1 != null && al1.Count >= 2)
                 {
-                    if ((String)(al1)[0] == "Value")
+                    if ((String) (al1)[0] == "Value")
                     {
-                        String ts = (String)(al1)[1];
+                        String ts = (String) (al1)[1];
                         DateTime dte = DateTime.MinValue;
                         DateTime.TryParse(ts, out dte);
                         return dte;
@@ -275,10 +273,8 @@ namespace AC.Util
                 }
             }
 
-            return DateTime.MinValue;  //出错啦，返回空
-
+            return DateTime.MinValue; //出错啦，返回空
         }
-
 
 
         /// <summary>
@@ -286,7 +282,7 @@ namespace AC.Util
         /// </summary>
         /// <param name="inStr"></param>
         /// <returns></returns>
-        private static Object getToken(String inStr)  //
+        private static Object getToken(String inStr) //
         {
             //Object 的返回值可能是int,bool,string或者ArrayList。其中ArrayList包括了Array，Object两种类型
             char[] jstr = inStr.ToCharArray();
@@ -321,7 +317,7 @@ namespace AC.Util
         /// </summary>
         /// <param name="inStr"></param>
         /// <returns></returns>
-        private static Object getSingle(String inStr)  //
+        private static Object getSingle(String inStr) //
         {
             if (inStr == "null")
                 return null;
@@ -333,14 +329,14 @@ namespace AC.Util
                 return DBNull.Value;
             else
                 return getNumber(inStr);
-
         }
+
         /// <summary>
         /// 把一个对像转换为一个数字
         /// </summary>
         /// <param name="inStr"></param>
         /// <returns></returns>
-        private static Object getNumber(String inStr)  //Process number
+        private static Object getNumber(String inStr) //Process number
         {
             if (inStr.IndexOf('.') != -1 ||
                 inStr.IndexOf('e') != -1 ||
@@ -358,7 +354,6 @@ namespace AC.Util
                 return n_int32;
 
 
-
             long n_int64;
             if (Int64.TryParse(inStr, out n_int64))
                 return n_int64;
@@ -372,15 +367,14 @@ namespace AC.Util
         /// <returns></returns>
         private static ArrayList getList(String inStr) // 
         {
-
             ArrayList al = JSplit(inStr, '[', ',');
 
             for (int i = 0; i < al.Count; i++)
-                al[i] = getToken((String)al[i]);
+                al[i] = getToken((String) al[i]);
 
             return al;
-
         }
+
         /// <summary>
         /// 把一个{"ColumnName":"Name","DataType":"string"}对象中的obj提取出来
         /// </summary>
@@ -391,7 +385,7 @@ namespace AC.Util
             ArrayList al = JSplit(inStr, '{', ',');
 
             for (int i = 0; i < al.Count; i++)
-                al[i] = getKV((String)al[i]);
+                al[i] = getKV((String) al[i]);
 
             return al;
         }
@@ -402,7 +396,7 @@ namespace AC.Util
         /// </summary>
         /// <param name="inStr"></param>
         /// <returns></returns>
-        private static ArrayList getKV(String inStr)  //
+        private static ArrayList getKV(String inStr) //
         {
             inStr = inStr.TrimStart();
             char[] jstr = inStr.ToCharArray();
@@ -422,7 +416,7 @@ namespace AC.Util
             if (p == jstr.Length)
                 return null; //只有Key没Value
 
-            al.Add(getString(inStr.Substring(0, p + 1)));   //获得Key
+            al.Add(getString(inStr.Substring(0, p + 1))); //获得Key
 
             al.Add(getToken(inStr.Substring(p + 2, jstr.Length - p - 2)));
 
@@ -434,10 +428,10 @@ namespace AC.Util
         /// </summary>
         /// <param name="inStr"></param>
         /// <returns></returns>
-        private static String getString(String inStr)    //
+        private static String getString(String inStr) //
         {
             if (inStr.Length < 2)
-                return null;          //应该有个exception
+                return null; //应该有个exception
             else if (inStr.Length == 2)
                 return "";
 
@@ -508,7 +502,7 @@ namespace AC.Util
 
             string s = new string(inCharA, char_p + 2, 4);
 
-            char b2 = (char)short.Parse(s, global::System.Globalization.NumberStyles.HexNumber);
+            char b2 = (char) short.Parse(s, global::System.Globalization.NumberStyles.HexNumber);
 
             return b2;
         }
@@ -535,7 +529,7 @@ namespace AC.Util
 
             while (p < jstr.Length - 1)
             {
-                if (jstr[p] == LeftClosure)          //找到左匹配符
+                if (jstr[p] == LeftClosure) //找到左匹配符
                 {
                     flag.Push(rightClosure(jstr[p]));
                     start = ++p;
@@ -551,34 +545,33 @@ namespace AC.Util
             {
                 if (flag.Count == 1) //在外围，寻找分隔符
                 {
-                    if (jstr[p] == sep)   //找分隔符，找不到就向前进
+                    if (jstr[p] == sep) //找分隔符，找不到就向前进
                     {
                         al.Add(inStr.Substring(start, p - start));
 
                         start = p + 1;
-
                     }
                     else if (isLeftClosure(jstr[p]))
                     {
                         flag.Push(rightClosure(jstr[p]));
                     }
-                    else if (jstr[p] == (char)flag.Peek())
+                    else if (jstr[p] == (char) flag.Peek())
                     {
                         break; // 提前结束了
                     }
                 }
                 else if (flag.Count > 1)
                 {
-                    if ((char)flag.Peek() == '"')   //在双引号里，只寻找双引号
+                    if ((char) flag.Peek() == '"') //在双引号里，只寻找双引号
                     {
-                        if (jstr[p] == '"' && !isEscaped(jstr, p))  //找到另一个匹配的双引号，就退出双引号
+                        if (jstr[p] == '"' && !isEscaped(jstr, p)) //找到另一个匹配的双引号，就退出双引号
                         {
                             flag.Pop();
                         }
                     }
                     else
                     {
-                        if (jstr[p] == (char)flag.Peek())
+                        if (jstr[p] == (char) flag.Peek())
                         {
                             flag.Pop();
                         }
@@ -602,15 +595,14 @@ namespace AC.Util
                 return null;
 
             return al;
-
         }
 
-        private static bool isSpace(char c)  //判断一个字符是否属于空格，包括回车，\t等。
+        private static bool isSpace(char c) //判断一个字符是否属于空格，包括回车，\t等。
         {
             return (c == ' ' || c == '\n' || c == '\r' || c == '\t');
         }
 
-        private static bool isEscaped(char[] jstr, int p)   //判断一个字符是否是escape过的，就是判断它之前的\是偶数还是奇数
+        private static bool isEscaped(char[] jstr, int p) //判断一个字符是否是escape过的，就是判断它之前的\是偶数还是奇数
         {
             int numBackSlash = 0;
             while (p-- > 0)
@@ -619,17 +611,17 @@ namespace AC.Util
                 else
                     break;
 
-            if (numBackSlash % 2 == 1)
+            if (numBackSlash%2 == 1)
                 return true;
             else
                 return false;
-
         }
 
         private static bool isLeftClosure(char c)
         {
             return (c == '"' || c == '{' || c == '[');
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -648,7 +640,6 @@ namespace AC.Util
         }
 
 
-
         /// <summary>
         /// 一个将DataTable转化为JSon字符串序列的函数
         /// </summary>
@@ -663,14 +654,14 @@ namespace AC.Util
 
             StringBuilder JsonString = new StringBuilder();
 
-            if (dt != null)// && dt.Rows.Count > 0)
+            if (dt != null) // && dt.Rows.Count > 0)
             {
                 String TableName;
 
-                if (dt.TableName == null || dt.TableName.ToString().Trim() == "")
+                if (dt.TableName == null || dt.TableName.Trim() == "")
                     TableName = "Table1";
                 else
-                    TableName = dt.TableName.ToString();
+                    TableName = dt.TableName;
 
                 JsonString.Append("{");
                 JsonString.Append("\"DataType\":");
@@ -684,7 +675,7 @@ namespace AC.Util
 
                 for (int i = 0; i < dt.Columns.Count; i++)
                 {
-                    JsonString.Append("{\"ColumnName\":\"" + dt.Columns[i].ColumnName.ToString() + "\",");
+                    JsonString.Append("{\"ColumnName\":\"" + dt.Columns[i].ColumnName + "\",");
                     JsonString.Append("\"" + "DataType\":\"" + checkDTType(dt.Columns[i].DataType.ToString()) + "\"}");
 
 
@@ -702,7 +693,7 @@ namespace AC.Util
 
                     for (int j = 0; j < dt.Columns.Count; j++)
                     {
-                        JsonString.Append("\"" + dt.Columns[j].ColumnName.ToString() + "\":");
+                        JsonString.Append("\"" + dt.Columns[j].ColumnName + "\":");
                         JsonString.Append(Obj2JSON(dt.Rows[i][j]));
 
 
@@ -727,12 +718,12 @@ namespace AC.Util
         /// </summary>
         /// <param name="dte"></param>
         /// <returns></returns>
-        private static string DateTime2JSON(DateTime dte)     //将DateTime 转成JSON格式。
+        private static string DateTime2JSON(DateTime dte) //将DateTime 转成JSON格式。
         {
             String dtResult = "";
 
             dtResult = "{\"DataType\":\"System.DateTime\",\"Value\":\"" +
-                dte.ToUniversalTime().ToString("s") + "Z\"}";
+                       dte.ToUniversalTime().ToString("s") + "Z\"}";
 
             return dtResult;
         }
@@ -742,7 +733,7 @@ namespace AC.Util
         /// </summary>
         /// <param name="jobj"></param>
         /// <returns></returns>
-        private static string Obj2JSON(Object jobj)   //将某个对象转成json格式。
+        private static string Obj2JSON(Object jobj) //将某个对象转成json格式。
         {
             if (jobj == null)
                 return "null";
@@ -750,43 +741,42 @@ namespace AC.Util
             String s = jobj.GetType().ToString();
 
             if (s == "System.Int32")
-                return ((Int32)jobj).ToString();
+                return ((Int32) jobj).ToString();
 
             if (s == "System.Int16")
-                return ((Int16)jobj).ToString();
+                return ((Int16) jobj).ToString();
 
             if (s == "System.Int64")
-                return ((Int64)jobj).ToString();
+                return ((Int64) jobj).ToString();
 
             if (s == "System.Double")
-                return ((Double)jobj).ToString();
+                return ((Double) jobj).ToString();
 
             if (s == "System.Decimal")
-                return ((Decimal)jobj).ToString();
+                return ((Decimal) jobj).ToString();
 
             if (s == "System.Byte")
-                return ((Byte)jobj).ToString();
+                return ((Byte) jobj).ToString();
 
             if (s == "System.Guid")
-                return "\"" + ((Guid)jobj).ToString() + "\"";
+                return "\"" + ((Guid) jobj).ToString() + "\"";
 
             if (s == "System.Boolean")
-                return ((Boolean)jobj).ToString().ToLower();
+                return ((Boolean) jobj).ToString().ToLower();
 
             if (s == "System.DateTime")
-                return DateTime2JSON((DateTime)jobj);
+                return DateTime2JSON((DateTime) jobj);
 
             if (s == "System.DBNull")
                 return "null";
 
             if (s == "System.Data.DataTable")
-                return DT2JSON((DataTable)jobj);
+                return DT2JSON((DataTable) jobj);
 
             if (s == "System.String")
-                return String2JSON((String)jobj);
+                return String2JSON((String) jobj);
 
             return "\"????\"";
-
         }
 
 
@@ -811,9 +801,8 @@ namespace AC.Util
             }
         }
 
-        private static string String2JSON(string s)  //把一个字符串转换为JSON格式，转义"/\n等字符。如果是null就返回"null"
+        private static string String2JSON(string s) //把一个字符串转换为JSON格式，转义"/\n等字符。如果是null就返回"null"
         {
-
             if (s == null)
                 return "null";
 
@@ -873,7 +862,7 @@ namespace AC.Util
                 }
             }
 
-            return "\"" + sb.ToString() + "\"";
+            return "\"" + sb + "\"";
         }
 
 
@@ -882,29 +871,29 @@ namespace AC.Util
             return ConvertFromJsonForSina(getToken(inStr));
         }
 
-        private static Object ConvertFromJsonForSina(Object jObj)  //初步被解析过的ArrayList或者Obj被送到这里来，解析为C#的对象，number，datetime，arraylist，等
+        private static Object ConvertFromJsonForSina(Object jObj)
+            //初步被解析过的ArrayList或者Obj被送到这里来，解析为C#的对象，number，datetime，arraylist，等
         {
             if (jObj == null)
-                return null;                                //null应该是出了什么问题了，格式错误等。
+                return null; //null应该是出了什么问题了，格式错误等。
 
-            String s = jObj.GetType().ToString();           //如果不是null，那就首先判断一下对象的类型
+            String s = jObj.GetType().ToString(); //如果不是null，那就首先判断一下对象的类型
 
 
-            if (s != "System.Collections.ArrayList")        //对象不是ArrayList，那就是number之类东西，直接返回。
+            if (s != "System.Collections.ArrayList") //对象不是ArrayList，那就是number之类东西，直接返回。
                 return jObj;
 
 
-
-            ArrayList al = (ArrayList)jObj;                 //下来判断输入值是不是一个单个对象，目前仅支持System.DataTable和System.DateTime */
+            ArrayList al = (ArrayList) jObj; //下来判断输入值是不是一个单个对象，目前仅支持System.DataTable和System.DateTime */
 
             if (al[0] != null && al[0].GetType().ToString() == "System.Collections.ArrayList")
             {
-                if (((ArrayList)al[0])[0].GetType().ToString() == "System.String")
+                if (((ArrayList) al[0])[0].GetType().ToString() == "System.String")
                 {
-                    if ((String)(((ArrayList)al[0])[0]) == "DataType")
-                        if ((String)(((ArrayList)al[0])[1]) == "System.DataTable")
+                    if ((String) (((ArrayList) al[0])[0]) == "DataType")
+                        if ((String) (((ArrayList) al[0])[1]) == "System.DataTable")
                             return al2DataTable(al);
-                        else if ((String)(((ArrayList)al[0])[1]) == "System.DateTime")
+                        else if ((String) (((ArrayList) al[0])[1]) == "System.DateTime")
                             return al2DateTime(al);
                 }
             }
@@ -921,16 +910,16 @@ namespace AC.Util
 
                 if (sType == "System.Collections.ArrayList")
                 {
-                    tmpal = (ArrayList)al[i];
+                    tmpal = (ArrayList) al[i];
                     if (tmpal[0].GetType().ToString() == "System.Collections.ArrayList")
                     {
-                        tmpal2 = (ArrayList)tmpal[0];
+                        tmpal2 = (ArrayList) tmpal[0];
 
-                        if ((String)tmpal2[0] == "DataType")
+                        if ((String) tmpal2[0] == "DataType")
                         {
-                            if ((String)tmpal2[1] == "System.DataTable")
+                            if ((String) tmpal2[1] == "System.DataTable")
                                 al[i] = al2DataTable(tmpal);
-                            else if ((String)tmpal2[1] == "System.DateTime")
+                            else if ((String) tmpal2[1] == "System.DateTime")
                                 al[i] = al2DateTime(tmpal);
                         }
                     }

@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC.Image", "AC.Image\AC.Ima
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC.Spring", "AC.Spring\AC.Spring.csproj", "{2429D261-9086-43DC-9D25-DB1B26CE23DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC.Common", "AC.Common\AC.Common.csproj", "{C4D5E6B0-AEA1-4ACC-BABD-3CCFDFCB6BF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{2429D261-9086-43DC-9D25-DB1B26CE23DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2429D261-9086-43DC-9D25-DB1B26CE23DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2429D261-9086-43DC-9D25-DB1B26CE23DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D5E6B0-AEA1-4ACC-BABD-3CCFDFCB6BF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D5E6B0-AEA1-4ACC-BABD-3CCFDFCB6BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D5E6B0-AEA1-4ACC-BABD-3CCFDFCB6BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D5E6B0-AEA1-4ACC-BABD-3CCFDFCB6BF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

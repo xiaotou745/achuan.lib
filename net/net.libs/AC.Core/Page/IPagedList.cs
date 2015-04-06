@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AC.Page
 {
@@ -50,9 +51,9 @@ namespace AC.Page
         /// <param name="contentList">分页对象结果</param>
         /// <param name="recordCount">总记录数</param>
         /// <param name="pageCount">分页数</param>
-        public PagedList(List<T> contentList, int recordCount, int pageCount)
+        public PagedList(IEnumerable<T> contentList, int recordCount, int pageCount)
         {
-            ContentList = contentList;
+            ContentList = contentList.ToList();
             RecordCount = recordCount;
             PageCount = pageCount;
         }

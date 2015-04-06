@@ -19,6 +19,7 @@ namespace AC.Util
         /// 乐淘支持的邮件地址格式
         /// </summary>
         private static string strEmail = @"^([\w\.\-]+)@((([A-Za-z0-9\-]+)\.)+)[A-Za-z]{2,4}$";
+
         /// <summary>
         /// 判断一个输入字符串是否合法的商品ID，合法的商品ID是全数字或者“数字_数字”
         /// </summary>
@@ -32,7 +33,8 @@ namespace AC.Util
             if (inStr.IndexOf('_') == -1)
                 return isAllNumber(inStr);
             else
-                return (isAllNumber(inStr.Substring(0, inStr.IndexOf('_'))) && isAllNumber(inStr.Substring(inStr.IndexOf('_') + 1)));
+                return (isAllNumber(inStr.Substring(0, inStr.IndexOf('_'))) &&
+                        isAllNumber(inStr.Substring(inStr.IndexOf('_') + 1)));
         }
 
         /// <summary>
@@ -47,7 +49,8 @@ namespace AC.Util
 
             for (int i = 0; i < inStr.Length; i++)
             {
-                if (!IsNumber(inStr, i) && inStr[i] != ' ' && inStr[i] != '-' && inStr[i] != '(' && inStr[i] != ')' && inStr[i] != '（' && inStr[i] != '）')
+                if (!IsNumber(inStr, i) && inStr[i] != ' ' && inStr[i] != '-' && inStr[i] != '(' && inStr[i] != ')' &&
+                    inStr[i] != '（' && inStr[i] != '）')
                     return false;
             }
 
@@ -88,10 +91,11 @@ namespace AC.Util
             return null;
         }
 
-        private static string[] spacePattern = new string[] { 
-            null,   //默认的
-            @"(\s{2,})"   //字符之间有多于两个的空格
-        };
+        private static readonly string[] spacePattern = new[]
+            {
+                null, //默认的
+                @"(\s{2,})" //字符之间有多于两个的空格
+            };
 
 
         private static string normalizeSpace(string inStr, int normalizeSpaceStatus)
@@ -372,7 +376,8 @@ namespace AC.Util
             if (inStr == null || inStr.Length == 0 || inStr.Trim() == "")
                 return true;
 
-            string Sql_1 = "exec|insert+|insert|select+|delete+|delete|update+|master+|master|truncate|declare|drop+|drop|drop+table|table";
+            string Sql_1 =
+                "exec|insert+|insert|select+|delete+|delete|update+|master+|master|truncate|declare|drop+|drop|drop+table|table";
             string[] sql_c = Sql_1.Split('|');
 
             foreach (string sl in sql_c)
@@ -458,7 +463,7 @@ namespace AC.Util
                 return false;
             if (!isSafeString(ipString))
                 return false;
-            string[] ipList = ipString.Split(new char[] { '.' });
+            string[] ipList = ipString.Split(new[] {'.'});
             if (ipList.Length == 4 || ipList.Length == 6)
             {
                 foreach (string item in ipList)
@@ -495,7 +500,9 @@ namespace AC.Util
         /// <returns></returns>
         public static bool IsUrl(string source)
         {
-            return Regex.IsMatch(source, @"^(((file|gopher|news|nntp|telnet|http|ftp|https|ftps|sftp)://)|(www\.))+(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(/[a-zA-Z0-9\&amp;%_\./-~-]*)?$", RegexOptions.IgnoreCase);
+            return Regex.IsMatch(source,
+                                 @"^(((file|gopher|news|nntp|telnet|http|ftp|https|ftps|sftp)://)|(www\.))+(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(/[a-zA-Z0-9\&amp;%_\./-~-]*)?$",
+                                 RegexOptions.IgnoreCase);
         }
 
 
@@ -574,10 +581,5 @@ namespace AC.Util
             Regex reg = new Regex(@"^([1-4]\d(\.5)?\/)*[1-4]\d(\.5)?$");
             return reg.IsMatch(inStr);
         }
-
-
-
-        
     }
-
 }

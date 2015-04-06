@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AC.Helper;
 using AC.Json;
 using AC.Util;
 using Common.Logging;
@@ -29,7 +30,7 @@ namespace AC.Core.Tests.Utils
         [Test]
         public void GetEnumDescriptions()
         {
-            IList<KeyValuePair<string, string>> keyValuePairs = EnumUtils.GetEnumDescriptions(typeof (OrderStatus));
+            IList<KeyValuePair<string, string>> keyValuePairs = EnumHelper.GetEnumDescriptions(typeof (OrderStatus));
 
             logger.Info(JsonSerializer.Serialize(keyValuePairs));
         }

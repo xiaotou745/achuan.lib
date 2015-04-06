@@ -1,5 +1,8 @@
 ﻿namespace AC.Web
 {
+    /// <summary>
+    /// Ajax Result.返回给ajax调用使用
+    /// </summary>
     public class AjaxResult
     {
         private AjaxResult()

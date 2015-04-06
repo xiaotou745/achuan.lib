@@ -1,5 +1,6 @@
 using System.Timers;
 using System.Web;
+using AC.Helper;
 using Common.Logging;
 using AC.Util;
 
@@ -22,7 +23,7 @@ namespace AC.Data.ConnString.WMS
 		/// </summary>
 		public static bool IsWmsWeb
 		{
-			get { return ConfigUtils.GetConfigValue("isWmsWeb", "") == "1"; }
+			get { return ConfigHelper.GetConfigValue("isWmsWeb", "") == "1"; }
 		}
 
 		#endregion
@@ -54,10 +55,10 @@ namespace AC.Data.ConnString.WMS
 			InitConnList(null, null);
 
 			//设置自动刷新属性
-			if (ConfigUtils.GetConfigValue("IsRefreshConn", "") == "true")
+			if (ConfigHelper.GetConfigValue("IsRefreshConn", "") == "true")
 			{
 				//定义定时器的间隔
-				int refrashInterval = int.Parse(ConfigUtils.GetConfigValue("RefrashInterval", "1"));
+				int refrashInterval = int.Parse(ConfigHelper.GetConfigValue("RefrashInterval", "1"));
 				if (refrashInterval < 7200000) refrashInterval = 7200000;
 
 				//创建定时器触发连接自动更新
