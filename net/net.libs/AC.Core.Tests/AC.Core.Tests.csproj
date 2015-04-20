@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Extension\ListExtensionsTest.cs" />
     <Compile Include="Extension\StringExtensionTest.cs" />
+    <Compile Include="Helper\XmlHelperTests.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Json\JsonSerializerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,7 +18,6 @@ namespace AC.Log
         private static string localIp = string.Empty;
         private readonly Encoding m_bodyEncoding = Encoding.GetEncoding("gb2312");
         private readonly Encoding m_subjectEncoding = Encoding.GetEncoding("gb2312");
-        private bool hasInitSubject;
 
         private string m_bcc;
         private string m_cc;
@@ -40,7 +39,7 @@ namespace AC.Log
         /// <remarks>
         /// This is available on MS .NET 2.0 runtime and higher
         /// </remarks>
-        public bool EnableSsl
+        public new bool EnableSsl
         {
             get { return m_enableSsl; }
             set { m_enableSsl = value; }
@@ -66,7 +65,7 @@ namespace AC.Log
         /// For .NET 2.0 (System.Net.Mail): A comma-delimited list of e-mail addresses.
         /// </para>
         /// </remarks>
-        public string Cc
+        public new string Cc
         {
             get { return m_cc; }
             set { m_cc = value; }
@@ -78,7 +77,7 @@ namespace AC.Log
         /// <remarks>
         /// This is available on MS .NET 2.0 runtime and higher
         /// </remarks>
-        public string ReplyTo
+        public new string ReplyTo
         {
             get { return m_replyTo; }
             set { m_replyTo = value; }
@@ -96,7 +95,7 @@ namespace AC.Log
         /// A semicolon-delimited list of recipient e-mail addresses.
         /// </para>
         /// </remarks>
-        public string Bcc
+        public new string Bcc
         {
             get { return m_bcc; }
             set { m_bcc = value; }
@@ -118,7 +117,7 @@ namespace AC.Log
         /// you may want to set the priority to <see cref="MailPriority.High"/>.
         /// </para>
         /// </remarks>
-        public MailPriority Priority
+        public new MailPriority Priority
         {
             get { return m_mailPriority; }
             set { m_mailPriority = value; }

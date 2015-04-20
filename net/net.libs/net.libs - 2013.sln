@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC.Core", "AC.Core\AC.Core.csproj", "{FDF6B367-6E74-4E7E-BEA8-FD53D6278C9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC.Data", "AC.Data\AC.Data.csproj", "{FA85394F-AC26-4F5F-B192-CB3B96CC4C18}"
@@ -33,6 +33,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC.Spring", "AC.Spring\AC.Spring.csproj", "{2429D261-9086-43DC-9D25-DB1B26CE23DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AC.Common", "AC.Common\AC.Common.csproj", "{C4D5E6B0-AEA1-4ACC-BABD-3CCFDFCB6BF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jQueryPlugins", "jQueryPlugins\jQueryPlugins.csproj", "{3BFC5E98-79B8-4DBC-8D25-6D16362F6691}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,6 +94,10 @@ Global
 		{C4D5E6B0-AEA1-4ACC-BABD-3CCFDFCB6BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4D5E6B0-AEA1-4ACC-BABD-3CCFDFCB6BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4D5E6B0-AEA1-4ACC-BABD-3CCFDFCB6BF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BFC5E98-79B8-4DBC-8D25-6D16362F6691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BFC5E98-79B8-4DBC-8D25-6D16362F6691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BFC5E98-79B8-4DBC-8D25-6D16362F6691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BFC5E98-79B8-4DBC-8D25-6D16362F6691}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
