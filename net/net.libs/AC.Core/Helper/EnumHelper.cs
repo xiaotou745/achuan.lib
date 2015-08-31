@@ -169,19 +169,5 @@ namespace AC.Helper
             return codes;
         }
 
-        public static String GetDescriptionByValue<TEnum>(this int val) where TEnum : struct
-        {
-            string name = Enum.GetName(typeof (TEnum), val);
-
-            foreach (var n in typeof (TEnum).GetField(name).GetCustomAttributes(true))
-            {
-                if (n.GetType() == typeof (AttribDescription))
-                {
-                    return ((AttribDescription) n).Description;
-                }
-            }
-
-            return string.Empty;
-        }
     }
 }

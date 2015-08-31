@@ -1,5 +1,6 @@
 using System;
 using Common.Logging;
+using Microsoft.Win32;
 
 namespace AC.WindowsService
 {

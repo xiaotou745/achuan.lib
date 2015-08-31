@@ -11,7 +11,7 @@ namespace AC.Helper
     {
         public static void ToXml(string fileName, object obj)
         {
-            using (FileStream stream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            using (FileStream stream = new FileStream(fileName, FileMode.Create, FileAccess.ReadWrite))
             {
                 //得到被序列化的类型
                 Type type = obj.GetType();

@@ -51,12 +51,15 @@
   <ItemGroup>
     <Compile Include="Expand\AttribDescription.cs" />
     <Compile Include="Extension\DataExtension.cs" />
+    <Compile Include="Extension\DataTableExtension.cs" />
     <Compile Include="Extension\ListExtensions.cs" />
     <Compile Include="Extension\StringExtension.cs" />
+    <Compile Include="Helper\CookieHelper.cs" />
     <Compile Include="Helper\EntityHelper.cs" />
     <Compile Include="Helper\MailHelper.cs" />
     <Compile Include="Security\DEncrypt.cs" />
     <Compile Include="Security\DESEncrypt.cs" />
+    <Compile Include="Security\HashAlgorithm.cs" />
     <Compile Include="Security\HashEncode.cs" />
     <Compile Include="Security\RSACryption.cs" />
     <Compile Include="Util\StringPlus.cs" />

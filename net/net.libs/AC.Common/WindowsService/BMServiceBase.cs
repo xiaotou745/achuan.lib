@@ -5,6 +5,7 @@ using System.ServiceProcess;
 using System.Threading;
 using AC.Helper;
 using Common.Logging;
+using AC.Util;
 
 #endregion
 
@@ -75,7 +76,7 @@ namespace AC.WindowsService
             MailHelper.SendMail(mailSubject, mailContext, string.Empty);
 #else
             mailSubject += "Release";
-            MailUtils.SendMail(mailSubject, mailContext, ConfigService.MailAddress);
+            //MailUtils.SendMail(mailSubject, mailContext, ConfigService.MailAddress);
 #endif
         }
 
@@ -125,7 +126,7 @@ namespace AC.WindowsService
 
 #else
             mailSubject += "Release";
-            MailHelper.SendMail(mailSubject, mailContext, ConfigService.MailAddress);
+            //MailHelper.SendMail(mailSubject, mailContext, ConfigService.MailAddress);
 #endif
         }
 
