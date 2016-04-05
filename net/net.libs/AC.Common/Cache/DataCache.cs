@@ -68,5 +68,11 @@ namespace AC.Cache
             System.Web.Caching.Cache objCache = HttpRuntime.Cache;
             objCache.Insert(cacheKey, objObject, null, absoluteExpiration, slidingExpiration);
         }
+
+        public static void Remove(string cacheKey)
+        {
+            System.Web.Caching.Cache objCache = HttpRuntime.Cache;
+            objCache.Remove(cacheKey);
+        }
     }
 }

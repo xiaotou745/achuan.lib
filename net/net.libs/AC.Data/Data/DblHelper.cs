@@ -604,6 +604,15 @@ namespace AC.Data
 			return QueryWithRowMapper(connString, CommandType.Text, commandText, TIMEOUT_DEFAULT, parameterValues, 0, rowMapper);
 		}
 
+        public IList<T> QueryWithRowMapper<T>(string connString,
+                                              CommandType commandType,
+                                              string commandText,
+                                              IDbParameters parameterValues,
+                                              IDataTableRowMapper<T> rowMapper)
+        {
+            return QueryWithRowMapper(connString, commandType, commandText, TIMEOUT_DEFAULT, parameterValues, 0, rowMapper);
+        }
+
 		public IList<T> QueryWithRowMapper<T>(string connString,
 		                                      CommandType commandType,
 		                                      string commandText,
