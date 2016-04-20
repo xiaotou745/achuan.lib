@@ -39,4 +39,13 @@ public interface IDbOperations {
 	 * @throws SQLException
 	 */
 	List<ColumnInfo> getColumnsInfo(String dbName, String dbTable) throws SQLException;
+	
+	/**
+	 * 更改数据库表或列描述
+	 * @param dbName
+	 * @param tableName
+	 * @param columnName
+	 * @param desc
+	 */
+	void updateProperty(String dbName, String tableName, String columnName, String desc)  throws SQLException;
 }

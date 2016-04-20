@@ -18,6 +18,10 @@ public class ColumnInfo {
 	private boolean isNull;
 	private String defaultValue;
 	private String description;
+	/**
+	 * mysql用得着，其他数据库就算了，mysql更改列的comment太弱了。哎。
+	 */
+	private String colType;
 
 	/**
 	 * @return the order
@@ -182,5 +186,32 @@ public class ColumnInfo {
 	 */
 	public void setDescription(String remark) {
 		this.description = remark;
+	}
+
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(String.format("[colOrder]:%s\n[isPk]:%s\n", getOrder(), isPK()));
+		sb.append(String.format("[colName]:%s\n[isNull]:%s\n", getName(), isNull()));
+		sb.append(String.format("[colType]:%s\n[defaultValue]:%s\n[desc]:%s\n", getType(), getDefaultValue(),
+				getDescription()));
+		sb.append(String.format("[colLength]:%s\n", getLength()));
+		sb.append(String
+				.format("[colPreci]:%s\n[colScale]:%s\n[isIdentity]:%s\n", getPreci(), getScale(), isIdentity()));
+		return sb.toString();
+	}
+
+	/**
+	 * @return the colType
+	 */
+	public String getColType() {
+		return colType;
+	}
+
+	/**
+	 * @param colType the colType to set
+	 */
+	public void setColType(String colType) {
+		this.colType = colType;
 	}
 }

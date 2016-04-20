@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dbservers>
+	<dbserver>
+		<id>sqlserver001</id>
+		<dbType>0</dbType>
+		<userName>sa</userName>
+		<password>Vancl@123</password>
+		<dbName>WYC</dbName>
+		<dbServer>127.0.0.1</dbServer>
+	</dbserver>
+	
+	<dbserver>
+		<id>mysqlserver001</id>
+		<dbType>1</dbType>
+		<userName>root</userName>
+		<password>123456</password>
+		<dbName>loandb</dbName>
+		<dbServer>10.8.8.71</dbServer>
+	</dbserver>
+</dbservers>

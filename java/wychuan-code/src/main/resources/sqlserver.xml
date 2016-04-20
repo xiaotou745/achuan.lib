@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>sqlserver数据库sql语句</comment>
+	
+	<entry key="sqlOfGetDbList"><![CDATA[select name from sysdatabases order by name]]></entry>
+	
+	<entry key="sqlOfGetTableNames"><![CDATA[select [name] from sysobjects where xtype='U'and [name]<>'dtproperties' order by [name]]]></entry>
+	
+	<entry key="sqlOfGetTableInfos"><![CDATA[
+	select s.name 'tableName',s2.name 'tableUser',s.xtype 'tableType',s.crdate 'tableDate',isnull(cast(ep.value as varchar),'') 'tableDesc' 
+	from sys.sysobjects s(nolock) 
+		join sys.sysusers s2(nolock) on s2.uid=s.uid 
+		left join sys.extended_properties ep(nolock) on s.id = ep.major_id and ep.minor_id=0 
+	where s.xtype='U' and s.name<>'dtproperties' 
+	order by s.name]]></entry>
+	
+	<entry key="sqlOfGetColumnInfos"><![CDATA[
+	select c.column_id as 'order',c.name,t.name 'type',
+		case when t.name='nchar' then c.max_length/2 when t.name='nvarchar' then c.max_length/2 else c.max_length end 'length',
+		c.precision 'preci',c.scale,c.is_identity as 'identity',isnull(idx.primaryKey,'0') 'pk',
+		c.is_nullable 'null',isnull(dc.definition,'') as 'defaultValue', cast(isnull(ep.value,'') as varchar) as 'description'
+	from sys.columns c(nolock) 
+		join sys.objects o(nolock) on c.object_id=o.object_id and (o.type='U' or o.type='V') and o.is_ms_shipped=0
+		join sys.types t(nolock) on c.user_type_id=t.user_type_id
+		left join sys.default_constraints dc(nolock) on c.object_id=dc.parent_object_id
+				and c.column_id=dc.parent_column_id
+				and c.default_object_id=dc.object_id
+		left join sys.extended_properties ep(nolock) on ep.class=1
+				and c.object_id=ep.major_id
+				and c.column_id=ep.minor_id
+		left join sys.extended_properties ep2(nolock) on ep2.class=1
+				and ep2.minor_id=0
+				and ep2.major_id=c.object_id
+		left join (select ic.object_id,ic.column_id,
+					case indexkey_property(ic.[object_id],
+                                           ic.index_id,
+                                           ic.index_column_id,
+                                           'IsDescending')
+	                             when 1 then 'DESC'
+	                             when 0 then 'ASC'
+	                             else ''
+	                           end as 'sort',
+	                 i.is_primary_key as primaryKey,
+	                 i.name 'indexName'
+			from sys.indexes i(nolock)
+				join sys.index_columns ic(nolock) on i.object_id=ic.object_id
+						and i.index_id=ic.index_id
+				left join sys.key_constraints kc(nolock) on i.object_id=kc.parent_object_id and i.index_id=kc.unique_index_id
+				join (select ic2.object_id,ic2.column_id,min(ic2.index_id) 'index_id' 
+					from sys.index_columns ic2(nolock) 
+					group by ic2.object_id,ic2.column_id) as ix on ic.object_id=ix.object_id
+						and ic.column_id=ix.column_id
+						and ic.index_id=ix.index_id
+		) as idx on c.object_id=idx.object_id and c.column_id=idx.column_id 
+	where o.name=N'%s']]></entry>
+</properties>

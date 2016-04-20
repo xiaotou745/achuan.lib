@@ -19,7 +19,7 @@ public enum DbType {
 		return this.desc;
 	}
 
-	public DbType valueOf(int value) {
+	public static DbType valueOf(int value) {
 		for (DbType dbtype : DbType.values()) {
 			if (dbtype.value() == value) {
 				return dbtype;

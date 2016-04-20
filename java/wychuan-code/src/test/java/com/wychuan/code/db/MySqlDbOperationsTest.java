@@ -65,4 +65,9 @@ public class MySqlDbOperationsTest {
 			System.out.println(table);
 		}
 	}
+	
+	@Test
+	public void getColumnInfosTest(){
+		
+	}
 }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -12,10 +13,11 @@ import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import com.wychuan.code.ColumnInfo;
 import com.wychuan.code.TableInfo;
 import com.wychuan.code.conf.DbSetting;
+import com.wychuan.util.StringUtils;
 
 public class SqlServerDbOperations extends DaoBase implements IDbOperations {
 
-	private final String PATH = "/sqlserver-operations.properties";
+	private final String PATH = "/sqlserver.xml";
 
 	public SqlServerDbOperations() {
 	}
@@ -32,7 +34,7 @@ public class SqlServerDbOperations extends DaoBase implements IDbOperations {
 	@Override
 	public List<String> getDbList() throws SQLException {
 		dbSetting.setDbName("master");
-		final String strSql = "select name from sysdatabases order by name";
+		String strSql = mapSqls.get(SQL_GET_DBLIST);
 
 		QueryRunner query = new QueryRunner();
 		List<String> dblist = new ArrayList<String>();
@@ -47,15 +49,6 @@ public class SqlServerDbOperations extends DaoBase implements IDbOperations {
 			DbUtils.closeQuietly(connection);
 		}
 		return dblist;
-
-		/*
-		 * List<String> dblist = new ArrayList<String>(); ResultSet rs = null;
-		 * try{ rs = executeQuery(strSql); while(rs.next()){ String dbname =
-		 * rs.getString(1); dblist.add(dbname); } }catch(SQLException err){
-		 * throw err; }finally{ free(rs); }
-		 * 
-		 * return dblist;
-		 */
 	}
 
 	/**
@@ -66,7 +59,7 @@ public class SqlServerDbOperations extends DaoBase implements IDbOperations {
 	@Override
 	public List<String> getTables(String dbName) throws SQLException {
 		dbSetting.setDbName(dbName);
-		final String strSql = "select [name] from sysobjects where xtype='U'and [name]<>'dtproperties' order by [name]";
+		final String strSql = mapSqls.get(SQL_GET_TABLE_NAMES);
 
 		Connection conn = null;
 		List<String> tablelist = new ArrayList<String>();
@@ -89,16 +82,8 @@ public class SqlServerDbOperations extends DaoBase implements IDbOperations {
 	@Override
 	public List<TableInfo> getTablesInfo(String dbName) {
 		dbSetting.setDbName(dbName);
-		String strSql = mapSqls.get("sqlOfGetTables");
-		/*
-		 * final String strSql =
-		 * "select s.name 'tableName',s2.name 'tableUser',s.xtype 'tableType',s.crdate 'tableDate',isnull(cast(ep.value as varchar),'') 'tableDesc'"
-		 * + " from sys.sysobjects s(nolock)" +
-		 * "     join sys.sysusers s2(nolock) on s2.uid=s.uid" +
-		 * "		left join sys.extended_properties ep(nolock) on s.id = ep.major_id and ep.minor_id=0"
-		 * + " where s.xtype='U' and s.name<>'dtproperties'" +
-		 * " order by s.name ";
-		 */
+		String strSql = mapSqls.get(SQL_GET_TABLE_INFOS);
+		System.out.println(strSql);
 		List<TableInfo> tableinfolist = new ArrayList<TableInfo>();
 		Connection conn = null;
 
@@ -123,12 +108,13 @@ public class SqlServerDbOperations extends DaoBase implements IDbOperations {
 		dbSetting.setDbName(dbName);
 
 		Connection conn = null;
-		String strSql = mapSqls.get(SQL_COLUMNS);
+		String strSql = mapSqls.get(SQL_GET_COLUMN_INFOS);
+		strSql = String.format(strSql, dbTable);
 		List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
 		try {
 			conn = getConnection();
 			QueryRunner query = new QueryRunner();
-			columns = query.query(conn, strSql, new BeanListHandler<ColumnInfo>(ColumnInfo.class), dbTable);
+			columns = query.query(conn, strSql, new BeanListHandler<ColumnInfo>(ColumnInfo.class));
 		} catch (SQLException err) {
 			err.printStackTrace();
 			throw err;
@@ -138,8 +124,44 @@ public class SqlServerDbOperations extends DaoBase implements IDbOperations {
 		return columns;
 	}
 
+	/**
+	 * sql文件路径
+	 */
 	@Override
 	protected String getSqlPath() {
 		return PATH;
+	}
+	
+	@Override
+	public void updateProperty(String dbName, String tableName, String columnName, String desc) throws SQLException {
+		dbSetting.setDbName(dbName);
+		
+		ProcedureParameterBean paramName = new ProcedureParameterBean("name", "MS_Description");
+		ProcedureParameterBean paramDesc = new ProcedureParameterBean("value", desc);
+		ProcedureParameterBean param3 = new ProcedureParameterBean("level0type", "SCHEMA");
+		ProcedureParameterBean param4 = new ProcedureParameterBean("level0name", "dbo");
+		ProcedureParameterBean param5 = new ProcedureParameterBean("level1type", "TABLE");
+		ProcedureParameterBean param6 = new ProcedureParameterBean("level1name", tableName);
+		
+		List<ProcedureParameterBean> params = new ArrayList<DaoBase.ProcedureParameterBean>();
+		params.add(paramName);
+		params.add(paramDesc);
+		params.add(param3);
+		params.add(param4);
+		params.add(param5);
+		params.add(param6);
+		if(!StringUtils.isEmpty(columnName)){
+			ProcedureParameterBean param7 = new ProcedureParameterBean("level2type", "COLUMN");
+			ProcedureParameterBean param8 = new ProcedureParameterBean("level2name", columnName);
+			params.add(param7);
+			params.add(param8);
+		}
+		
+		try{
+			runProcedure("sp_updateextendedproperty", params);
+		}catch(Exception e){
+			runProcedure("sp_addextendedproperty", params);
+		}
+		
 	}
 }

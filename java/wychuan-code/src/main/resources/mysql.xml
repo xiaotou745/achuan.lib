@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>mysql数据库sql语句</comment>
+	
+	<entry key="sqlOfGetDbList"><![CDATA[show databases;]]></entry>
+	
+	<entry key="sqlOfGetTableNames"><![CDATA[show tables;]]></entry>
+	
+	<entry key="sqlOfGetTableInfos"><![CDATA[
+	select TABLE_NAME AS 'tableName',TABLE_TYPE as 'tableType',CREATE_TIME as 'tableDate',TABLE_COMMENT 'tableDesc','' as 'tableUser' 
+	from information_schema.`TABLES` 
+	where TABLE_SCHEMA=?]]></entry>
+	
+	<entry key="sqlOfGetColumnInfos"><![CDATA[
+select ORDINAL_POSITION as 'order',COLUMN_NAME as 'name',DATA_TYPE as 'type',
+	CASE WHEN POSITION('(' IN COLUMN_TYPE)>0 THEN SUBSTRING_INDEX(SUBSTRING_INDEX(COLUMN_TYPE,'(',-1),')',1) ELSE 0 END 'length',
+	IFNULL(NUMERIC_PRECISION,0) as 'preci',IFNULL(NUMERIC_SCALE,0) as 'scale',
+	case WHEN EXTRA='auto_increment' THEN 1 ELSE 0 END as 'identity',
+	case WHEN COLUMN_KEY='PRI' THEN 1 ELSE 0 END as 'pk',
+	case WHEN IS_NULLABLE='NO' THEN 0 ELSE 1 END as 'null',
+	COLUMN_DEFAULT as 'defaultValue',
+	COLUMN_COMMENT as 'description',
+	COLUMN_TYPE as 'colType'
+from information_schema.`COLUMNS`
+where TABLE_SCHEMA=?
+	and TABLE_NAME=?
+	]]></entry>
+	
+</properties>

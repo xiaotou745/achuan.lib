@@ -3,11 +3,28 @@ package com.wychuan.code.conf;
 import com.wychuan.code.db.DbType;
 
 public class DbSetting {
+	private String id;
 	private DbType dbType = DbType.MySql;
 	private String userName;
 	private String password;
 	private String dbName;
 	private String dbServer;
+	private String dbPort;
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getDbServer() {
 		return dbServer;
@@ -67,10 +84,10 @@ public class DbSetting {
 	 */
 	public String getUrl() {
 		if (dbType.equals(DbType.SqlServer)) {
-			return String.format("jdbc:sqlserver://%s:1433;databaseName=%s", getDbServer(), getDbName());
+			return String.format("jdbc:sqlserver://%s:%s;databaseName=%s", getDbServer(), getDbPort(), getDbName());
 		} else if (dbType.equals(DbType.MySql)) {
-			return String.format("jdbc:mysql://%s:3306/%s?useUnicode=true&characterEncoding=gb2312", getDbServer(),
-					getDbName());
+			return String.format("jdbc:mysql://%s:%s/%s?useUnicode=true&characterEncoding=gb2312", getDbServer(),
+					getDbPort(), getDbName());
 		}
 		return null;
 	}
@@ -88,5 +105,20 @@ public class DbSetting {
 	 */
 	public void setDbName(String dbName) {
 		this.dbName = dbName;
+	}
+
+	/**
+	 * @return the dbPort
+	 */
+	public String getDbPort() {
+		return dbPort;
+	}
+
+	/**
+	 * @param dbPort
+	 *            the dbPort to set
+	 */
+	public void setDbPort(String dbPort) {
+		this.dbPort = dbPort;
 	}
 }
