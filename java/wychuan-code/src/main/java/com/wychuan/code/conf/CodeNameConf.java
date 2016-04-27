@@ -287,14 +287,17 @@ public class CodeNameConf {
 	public void setNameOfDomain(String nameOfDomain) {
 		this.nameOfDomain = nameOfDomain;
 	}
-	public String getFullNameOfDomain(){
-		return getNameSpaceOfDomain()+"."+getNameOfDomain();
+
+	public String getFullNameOfDomain() {
+		return getNameSpaceOfDomain() + "." + getNameOfDomain();
 	}
+
 	/**
 	 * 获取ServiceImpl层依赖的Dao对象
+	 * 
 	 * @return
 	 */
-	public String getServiceImplDepedencyObj(){
+	public String getServiceImplDepedencyObj() {
 		String daoName = getNameOfDao();
 		return CodeCommon.setFirstCharLower(daoName);
 	}

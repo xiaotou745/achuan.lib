@@ -15,6 +15,11 @@ import com.wychuan.code.TableInfo;
 import com.wychuan.code.conf.DbSetting;
 import com.wychuan.util.StringUtils;
 
+/**
+ * SQL Server数据库操作类
+ * @author wangyuchuan
+ *
+ */
 public class SqlServerDbOperations extends DaoBase implements IDbOperations {
 
 	private final String PATH = "/sqlserver.xml";

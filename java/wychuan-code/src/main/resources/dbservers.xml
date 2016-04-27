@@ -8,6 +8,14 @@
 		<dbName>WYC</dbName>
 		<dbServer>127.0.0.1</dbServer>
 	</dbserver>
+	<dbserver>
+		<id>sqlserver002</id>
+		<dbType>0</dbType>
+		<userName>sa</userName>
+		<password>Eds@123</password>
+		<dbName>Nbic.Metting</dbName>
+		<dbServer>172.18.10.64</dbServer>
+	</dbserver>
 	
 	<dbserver>
 		<id>mysqlserver001</id>

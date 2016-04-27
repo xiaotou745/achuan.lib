@@ -18,6 +18,8 @@ public class TableViewParams {
 	private boolean hasEdit = true;
 	
 	private boolean hasGenerateCode = false;
+	
+	private boolean orderByName = false;
 
 	/**
 	 * @return the dbServerId
@@ -71,6 +73,20 @@ public class TableViewParams {
 
 	public void setHasGenerateCode(boolean hasGenerateCode) {
 		this.hasGenerateCode = hasGenerateCode;
+	}
+
+	/**
+	 * @return the orderByName
+	 */
+	public boolean isOrderByName() {
+		return orderByName;
+	}
+
+	/**
+	 * @param orderByName the orderByName to set
+	 */
+	public void setOrderByName(boolean orderByName) {
+		this.orderByName = orderByName;
 	}
 }
 

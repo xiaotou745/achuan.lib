@@ -18,6 +18,11 @@ import com.wychuan.code.TableInfo;
 import com.wychuan.code.conf.DbSetting;
 import com.wychuan.util.StringUtils;
 
+/**
+ * Mysql 数据库操作类
+ * @author wangyuchuan
+ *
+ */
 public class MySqlDbOperations extends DaoBase implements IDbOperations {
 
 	public MySqlDbOperations() {

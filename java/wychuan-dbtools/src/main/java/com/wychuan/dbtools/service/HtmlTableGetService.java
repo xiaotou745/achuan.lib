@@ -2,6 +2,7 @@ package com.wychuan.dbtools.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.wychuan.code.ColumnInfo;
 import com.wychuan.code.TableInfo;
@@ -42,6 +43,19 @@ abstract class AbstractHtmlTable implements HtmlTableGetService {
 	protected boolean useSection;
 
 	protected boolean useStripped;
+	
+	/**
+	 * 是否根据名称排序
+	 */
+	protected boolean orderByName;
+	
+	protected boolean showOrderBy;
+	
+	
+
+	/**
+	 * 获取html代码
+	 */
 
 	@Override
 	public HtmlTableInfo getHtmlTable() throws SQLException {
@@ -50,6 +64,8 @@ abstract class AbstractHtmlTable implements HtmlTableGetService {
 		htmlTable.setUseSection(isUseSection());
 		htmlTable.setUseStripped(isUseStripped());
 		htmlTable.setColumnNames(getColumnNames());
+		htmlTable.setOrderByName(isOrderByName());
+		htmlTable.setShowOrderBy(isShowOrderBy());
 
 		setHtmlRowInfo(htmlTable);
 
@@ -126,6 +142,34 @@ abstract class AbstractHtmlTable implements HtmlTableGetService {
 
 	public void setHasGenerateCode(boolean hasGenerateCode) {
 		this.hasGenerateCode = hasGenerateCode;
+	}
+
+	/**
+	 * @return the orderByName
+	 */
+	public boolean isOrderByName() {
+		return orderByName;
+	}
+
+	/**
+	 * @param orderByName the orderByName to set
+	 */
+	public void setOrderByName(boolean orderByName) {
+		this.orderByName = orderByName;
+	}
+
+	/**
+	 * @return the showOrderBy
+	 */
+	public boolean isShowOrderBy() {
+		return showOrderBy;
+	}
+
+	/**
+	 * @param showOrderBy the showOrderBy to set
+	 */
+	public void setShowOrderBy(boolean showOrderBy) {
+		this.showOrderBy = showOrderBy;
 	}
 }
 
@@ -223,6 +267,11 @@ class GetHtmlTableOfColumns extends AbstractHtmlTable {
 		IDbOperations dbOperation = DbOperationFactory.build(dbSetting);
 		List<ColumnInfo> lstColumns = dbOperation.getColumnsInfo(dbSetting.getDbName(), getTableName());
 
+		if(isOrderByName()){
+			lstColumns = lstColumns.stream()
+				.sorted((c1,c2)->c1.getName().compareTo(c2.getName()))
+				.collect(Collectors.toList());
+		}
 		for (ColumnInfo col : lstColumns) {
 			HtmlTableTrItem trItem = htmlTable.newRow();
 			trItem.newTd("", col.getOrder());

@@ -19,7 +19,7 @@ public enum CodeLanguage {
 		return this.desc;
 	}
 
-	public CodeLanguage valueOf(int value) {
+	public static CodeLanguage valueOf(int value) {
 		for (CodeLanguage codel : CodeLanguage.values()) {
 			if (codel.value() == value) {
 				return codel;

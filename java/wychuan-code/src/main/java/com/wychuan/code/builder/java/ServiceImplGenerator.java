@@ -23,9 +23,9 @@ public class ServiceImplGenerator extends CodeGeneratorBase implements IServiceI
 	@Override
 	public String getServiceImplCode() {
 		StringPlus strclass = new StringPlus();
-		
+
 		strclass.append(generateHead());
-		
+
 		// 生成方法开始
 		strclass.append(generateCreateMethod());
 		strclass.append(generateModifyMethod());
@@ -33,18 +33,18 @@ public class ServiceImplGenerator extends CodeGeneratorBase implements IServiceI
 		strclass.append(generateGetByIdMethod());
 		strclass.append(generateQueryMethod());
 		// 生成方法结束
-		
+
 		strclass.append("}");
-		
+
 		return strclass.toString();
 	}
-	
-	private String generateHead(){
+
+	private String generateHead() {
 		StringPlus strclass = new StringPlus();
-		
-		strclass.appendLine("package "+codeNameConf.getNameSpaceOfServiceImpl()+";");
+
+		strclass.appendLine("package " + codeNameConf.getNameSpaceOfServiceImpl() + ";");
 		strclass.appendLine();
-		
+
 		strclass.appendLine("import java.util.List");
 		strclass.appendLine("import org.springframework.beans.factory.annotation.Autowired;");
 		strclass.appendLine("import org.springframework.stereotype.Service");
@@ -55,16 +55,18 @@ public class ServiceImplGenerator extends CodeGeneratorBase implements IServiceI
 		strclass.appendLine();
 
 		strclass.appendLine("/**");
-		strclass.appendLine(" * 服务提供对象 {@code "+codeNameConf.getNameOfServiceImpl()+"}");
+		strclass.appendLine(" * 服务提供对象 {@code " + codeNameConf.getNameOfServiceImpl() + "}");
 		strclass.appendLine(" * @author " + conf.getAuthor());
-		strclass.appendLine(" * @date "+ParseHelper.toDateString(new Date()));
+		strclass.appendLine(" * @date " + ParseHelper.toDateString(new Date()));
 		strclass.appendLine(" */");
 		strclass.appendLine("@Service");
-		
-		strclass.appendLine("public class "+codeNameConf.getNameOfServiceImpl()+" implements "+codeNameConf.getNameOfService()+" {");
+
+		strclass.appendLine("public class " + codeNameConf.getNameOfServiceImpl() + " implements "
+				+ codeNameConf.getNameOfService() + " {");
 		strclass.appendLine();
 		strclass.appendSpaceLine(1, "@Autowired");
-		strclass.appendSpaceLine(1, "private "+codeNameConf.getNameOfDomain()+" "+codeNameConf.getServiceImplDepedencyObj()+";");
+		strclass.appendSpaceLine(1,
+				"private " + codeNameConf.getNameOfDomain() + " " + codeNameConf.getServiceImplDepedencyObj() + ";");
 		strclass.appendLine();
 		return strclass.toString();
 	}
@@ -82,7 +84,7 @@ public class ServiceImplGenerator extends CodeGeneratorBase implements IServiceI
 		strclass.appendSpaceLine(1, " *");
 		strclass.appendSpaceLine(1, " * @author " + this.conf.getAuthor());
 		strclass.appendSpaceLine(1, " * @date " + ParseHelper.toDateString(new Date()));
-		
+
 		strclass.appendSpaceLine(1, " *");
 		strclass.appendSpaceLine(1, " * @see " + codeNameConf.getFullNameOfModel());
 		strclass.appendSpaceLine(1, " */");

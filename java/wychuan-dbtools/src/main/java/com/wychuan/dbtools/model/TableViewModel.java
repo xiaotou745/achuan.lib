@@ -57,7 +57,7 @@ public class TableViewModel {
 	/**
 	 * 代码生成结果
 	 */
-	private CodeResult codeResult;
+	private CodeResult codeResult = CodeResult.empty;
 
 	private String dbNameSource;
 

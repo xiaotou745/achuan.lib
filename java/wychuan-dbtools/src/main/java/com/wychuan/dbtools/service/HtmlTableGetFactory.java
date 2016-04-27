@@ -13,6 +13,7 @@ public class HtmlTableGetFactory {
 	private boolean hasGenerateCode = false;
 	private boolean useSection = false;
 	private boolean useStripped = true;
+	private boolean orderByName = false;
 
 	public static HtmlTableGetFactory instance(int viewType) {
 		HtmlTableGetFactory htmlTableGetFactory = new HtmlTableGetFactory();
@@ -61,6 +62,7 @@ public class HtmlTableGetFactory {
 			break;
 		case 3:
 			result = new GetHtmlTableOfColumns();
+			result.setShowOrderBy(true);
 			break;
 		default:
 			result = new GetHtmlTableOfDbNames();
@@ -72,6 +74,21 @@ public class HtmlTableGetFactory {
 		result.setHasGenerateCode(hasGenerateCode);
 		result.setUseSection(useSection);
 		result.setUseStripped(useStripped);
+		result.setOrderByName(isOrderByName());
 		return result;
+	}
+
+	/**
+	 * @return the orderByName
+	 */
+	public boolean isOrderByName() {
+		return orderByName;
+	}
+
+	/**
+	 * @param orderByName the orderByName to set
+	 */
+	public void setOrderByName(boolean orderByName) {
+		this.orderByName = orderByName;
 	}
 }

@@ -36,6 +36,11 @@ public class GenerateConf {
 	 * 主键字段列表
 	 */
 	private List<ColumnInfo> keys;
+	
+	/**
+	 * 表名
+	 */
+	private String tableName;
 
 	/**
 	 * @return the dbType
@@ -145,5 +150,4 @@ public class GenerateConf {
 		this.tableName = tableName;
 	}
 
-	private String tableName;
 }

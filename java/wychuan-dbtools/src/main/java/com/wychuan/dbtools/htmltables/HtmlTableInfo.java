@@ -17,6 +17,8 @@ public class HtmlTableInfo {
 	private String sectionId;
 	private String sectionName;
 	private boolean useStripped;
+	private boolean orderByName;
+	private boolean showOrderBy;
 	private ColumnNames columnNames;
 
 	public List<HtmlTableTrItem> getRows() {
@@ -67,6 +69,20 @@ public class HtmlTableInfo {
 		this.columnNames = columnNames;
 	}
 
+	/**
+	 * @return the orderByName
+	 */
+	public boolean isOrderByName() {
+		return orderByName;
+	}
+
+	/**
+	 * @param orderByName the orderByName to set
+	 */
+	public void setOrderByName(boolean orderByName) {
+		this.orderByName = orderByName;
+	}
+	
 	public boolean hasColumns() {
 		return columnNames != null && columnNames.size() > 0;
 	}
@@ -80,21 +96,39 @@ public class HtmlTableInfo {
 		addRow(tr);
 		return tr;
 	}
-
+	
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
+		if(isShowOrderBy()){//如果需要根据名称排序，则排序之
+			sb.append(String.format("<a href='javascript:;' data-orderby='%s' id='sortbyname'>按名称排序</a>",isOrderByName()));
+		}
 		sb.append(String.format("<table class=\"table table-bordered table-condensed %s\">",
 				this.useStripped ? "table-striped" : ""));
-		sb.append("<thead><tr>");
+		sb.append("<tbody><tr>");
 		for (String colName : getColumnNames()) {
 			sb.append(String.format("<th>%s</th>", colName));
 		}
-		sb.append("</tr></thead><tbody>");
+		sb.append("</tr>");
 		for (HtmlTableTrItem tableRow : rows) {
 			sb.append(tableRow.toString());
 		}
 		sb.append("</tbody></table>");
 		return sb.toString();
 	}
+
+	/**
+	 * @return the showOrderBy
+	 */
+	public boolean isShowOrderBy() {
+		return showOrderBy;
+	}
+
+	/**
+	 * @param showOrderBy the showOrderBy to set
+	 */
+	public void setShowOrderBy(boolean showOrderBy) {
+		this.showOrderBy = showOrderBy;
+	}
+
 }

@@ -65,6 +65,20 @@
         }
     });
 
+    $(document).delegate("#sortbyname","click",function(){
+    	var dbServer = $("#currentDbServerId").val();
+        var dbName = $("#currentDbName").val();
+        var tableName = $("#currentTableName").val();
+        var orderby=$(this).data("orderby");
+        var isOrder = false;
+        if(orderby){
+        	isOrder = false;
+        }else{
+        	isOrder = true;
+        }
+        refresh(3, dbName, tableName, dbServer, isOrder);
+    })
+    
     //对话框弹框事件
     $('#modalDescEdit').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
@@ -109,7 +123,9 @@
             params,
             function (data) {
                 if (data) {
-                    refresh($("#currentViewType").val(), dbName, tableName, dbServer);
+                	var viewtype=$("#currentViewType").val();
+                	var orderby=$("#sortbyname").data("orderby");
+                    refresh($("#currentViewType").val(), dbName, tableName, dbServer,orderby);
                     $("#modalDescEdit").modal("hide");
                 }
             }
@@ -118,7 +134,10 @@
 });
 
 //刷新
-function refresh(viewType,  dbName, dbTable, dbServerId) {
+function refresh(viewType,  dbName, dbTable, dbServerId, orderByName) {
+	if(orderByName==undefined){
+		orderByName = false;
+	}
     var tableHasEditOper = $("#tableHasEditOper").val();
     var tableHasGenerateCodeOper = $("#tableHasGenerateCodeOper").val();
     var viewParams={
@@ -127,6 +146,7 @@ function refresh(viewType,  dbName, dbTable, dbServerId) {
     		dbName:dbName,
     		dbTable:dbTable,
     		hasEdit:tableHasEditOper,
+    		orderByName:orderByName,
     		hasGenerateCode:tableHasGenerateCodeOper
     };
     $.blockUI();
