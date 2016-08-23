@@ -44,3 +44,17 @@ net/net.libs/AC.Spring.Tests/bin/
 net/net.libs/AC.Spring.Tests/obj/
 net/net.libs/jQueryPlugins/bin/
 net/net.libs/jQueryPlugins/obj/
+
+#======Java
+*.class
+
+.jar
+.war
+.ear
+
+hs_err_pid*
+
+/target/
+.settings
+.classpath
+.project

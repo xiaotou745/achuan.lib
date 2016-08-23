@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:c="http://www.springframework.org/schema/c" 
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+<!-- xmlns:p="http://www.springframework.org/schema/p" 
+p-namespace:可以使property中的配置放置到bean属性上：p:service="service" -->
+
+<!-- xmlns:c="http://www.springframework.org/schema/c"
+c-namespace:可以使constructor-arg中的配置放置到bean上：c:service-ref="service" -->
+
+<!-- xmlns:context="http://www.springframework.org/schema/context"
+使用注解必须添加此命名空间 -->
+
+	<!-- 使用<import/>来组合spring配置文件，可以指定多条 -->
+	<!-- <import resource="message.xml"/>  -->
+	
+    <!-- more bean definitions go here -->
+    <!-- <context:annotation-config></context:annotation-config> -->
+	<context:component-scan base-package="com.wychuan.learn.spring.*"></context:component-scan>
+</beans>

@@ -5,9 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ParseHelper {
-	public static String toDateString(Date date){
+	public static String toDateString(Date date) {
 		return toDateString(date, null);
 	}
+
 	public static String toDateString(Date date, String format) {
 		if (date == null) {
 			return "";

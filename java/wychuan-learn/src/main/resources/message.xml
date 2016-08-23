@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="messageService" class="com.wychuan.learn.spring.hello.MessageServiceImpl">
+		<!-- collaborators and configuration for this bean go here -->
+	</bean>
+
+	<bean id="messageService2" class="com.wychuan.learn.spring.hello.MessageServiceImpl2">
+		<!-- collaborators and configuration for this bean go here -->
+		<!-- 使用属性来注入依赖项 -->
+		<property name="name" value="chuange"></property>
+	</bean>
+
+	<!-- 使用p-namespace来把<property>中指定的属性放到bean属性上(p:name) 注意上述beans上，需要指定命名空间：xmlns:p="http://www.springframework.org/schema/p" -->
+	<bean id="pnsMessageService" class="com.wychuan.learn.spring.hello.MessageServiceImpl2"
+		p:name="chuange">
+	</bean>
+
+	<!-- more bean definitions go here -->
+	<bean id="messageFactory" class="com.wychuan.learn.spring.hello.MessageServiceFactory">
+	</bean>
+
+	<!-- 使用静态工厂方法初始化一个bean，注意：class指定工厂方法所属类的全名，factory-method指定方法名称 -->
+	<bean id="staticFactoryMethodMessageSevice" class="com.wychuan.learn.spring.hello.MessageServiceFactory"
+		factory-method="getStaticMessageService">
+	</bean>
+
+	<!-- 使用实例工厂方法初始化一个bean，注意：class不指定，factory-bean指定工厂方法所属类的实例，factory-method指定方法名称 -->
+	<bean id="instanceFactoryMethodMessageService" factory-bean="messageFactory"
+		factory-method="getInstanceMessageService">
+	</bean>
+
+	<!-- 使用<alias name="fromName" alias="toName">来指定别名 -->
+	<alias name="messageService2" alias="ms2"/>
+	
+    <bean id="messagePrinter" class="com.wychuan.learn.spring.hello.MessagePrinter">
+        <!-- collaborators and configuration for this bean go here -->
+        <constructor-arg name="service" ref="messageService"></constructor-arg>
+    </bean>
+
+    <!-- 使用c-namespace来把<construtor-arg>中指定的属性放到bean属性上(c:name-ref) 
+		注意上述beans上，需要指定命名空间：xmlns:p="http://www.springframework.org/schema/c" -->
+    <bean id="cnsMessagePrinter" class="com.wychuan.learn.spring.hello.MessagePrinter" c:service-ref="messageService">
+    </bean>
+</beans>

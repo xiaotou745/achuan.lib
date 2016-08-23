@@ -12,7 +12,7 @@
         <dependent-module archiveName="wychuan-code-0.0.1-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/wychuan-code/wychuan-code">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <property name="context-root" value="wychuan-dbtools"/>
         <property name="java-output-path" value="/wychuan-dbtools/target/classes"/>
+        <property name="context-root" value="dbtools"/>
     </wb-module>
 </project-modules>
