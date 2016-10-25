@@ -1,6 +1,9 @@
 *.user
 *.suo
 *.bak
+.DS_Store
+*.iml
+.idea/
 
 #=============ac.core ignore
 net/net.libs/AC.Core/bin/
